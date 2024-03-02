@@ -53,7 +53,7 @@ Run the script from the command line. Here are the available commands:
 
 ## Credits
 
-This tool was developed by MeEmE. For any queries or suggestions, please feel free to contact.
+This tool was developed by _MYFOX_. For any queries or suggestions, please feel free to contact.
 
 ## Contributing
 
@@ -61,4 +61,5 @@ Contributions to the codebase are welcome! Feel free to fork the repository and 
 
 ## Donations
 
-If you find this tool helpful and would like to support its development, donations are appreciated. Contact for details on how to contribute financially.
+If you find this tool helpful and would like to support its development, donations are appreciated. 
+DOGE DN4MEB5L41u98EP99cpTgZXt1QbEfQUVJx
