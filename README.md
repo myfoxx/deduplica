@@ -15,7 +15,8 @@ Clone the repository or download the files directly to your local machine.
 
 ## Usage
 
-Run the script from the command line. Here are the available commands:
+Run the script from the command line. The [db_file] parameter is optional. If it is not specified at the first run of the script, the DB "myfile.db" is created and used by default. It is possible to create more DB depending on the case and the needs, giving the possibility to have different DB depending on the use cases.
+Here are the available commands:
 
 1. **Create Database (`create-db`)**
    - `python deduplica.py create-db [db_file]`
@@ -23,7 +24,7 @@ Run the script from the command line. Here are the available commands:
 
 2. **Find Duplicates (`find-duplicates`)**
    - `python deduplica.py find-duplicates [db_file] <directory> <file_types>`
-   - Finds duplicate files in the specified directory for the given file types.
+   - Find duplicate files. Search the specified file type in the folder and insert them into the DB
 
 3. **Find Files by Date (`find-by-date`)**
    - `python deduplica.py find-by-date [db_file] <start_date> [--end_date <end_date>]`
@@ -44,12 +45,14 @@ Run the script from the command line. Here are the available commands:
 7. **Show Duplicate Files (`show-duplicates`)**
    - `python deduplica.py show-duplicates [db_file]`
    - Displays duplicate files stored in the database.
+  
 
 ## How Can This Tool Be Useful?
 
 - Organize large collections of files such as photos, videos, or documents.
 - Reclaim disk space by removing unnecessary duplicate files.
 - Simplify file management tasks.
+
 
 ## Credits
 
