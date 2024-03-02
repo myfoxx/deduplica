@@ -1,4 +1,4 @@
-# Final version of the script with optimizations and complete functionalities
+#!/usr/bin/env python3
 
 import argparse
 import sqlite3
@@ -17,13 +17,14 @@ def show_help(parser):
 def create_connection(db_file=DEFAULT_DB_FILE):
     try:
         conn = sqlite3.connect(db_file)
+        ensure_database_exists(conn)
         return conn
     except sqlite3.Error as e:
         print(f"Database error: {e}")
         return None
 
 # Function to create an enhanced table in the SQLite database
-def create_enhanced_table(conn):
+def ensure_database_exists(conn):
     try:
         cursor = conn.cursor()
         cursor.execute('''
@@ -37,14 +38,14 @@ def create_enhanced_table(conn):
         ''')
         conn.commit()
     except sqlite3.Error as e:
-        print(f"Error creating table: {e}")
+        print(f"Error ensuring database exists: {e}")
 
 # Function to get the hash of a file
 def get_file_hash(file_path):
     hasher = hashlib.md5()
     with open(file_path, 'rb') as file:
-        buf = file.read()
-        hasher.update(buf)
+        for chunk in iter(lambda: file.read(4096), b""):
+            hasher.update(chunk)
     return hasher.hexdigest()
 
 # Function to insert or update file information in the SQLite database
@@ -303,10 +304,11 @@ def execute_command(args, conn):
 
 # Main function to handle command line arguments
 def main():
-    parser = argparse.ArgumentParser(description="File Duplicate Finder and Manager V0.3 - by _Myfox_ - Licensed under GNU",
-                                     usage="%(prog)s [command] [db_file] [<args>]",
+    parser = argparse.ArgumentParser(description="File Duplicate Finder and Manager by _MYFOX_ - Licensed under GNU",
+                                     usage="%(prog)s [command] [<args>]",
                                      formatter_class=argparse.RawTextHelpFormatter)
     subparsers = parser.add_subparsers(dest="command")
+
 
     # Create DB command
     create_db_parser = subparsers.add_parser('create-db', help='Create or initialize the database')
@@ -361,11 +363,11 @@ def main():
     if not args.command:
         parser.print_help()
     else:
-        conn = create_connection(args.db_file)
+        conn = create_connection(args.db_file if 'db_file' in args else DEFAULT_DB_FILE)
         if conn:
             execute_command(args, conn)
+        pass
 
 # Uncomment the following line to enable command line functionality
 if __name__ == "__main__":
     main()
-
